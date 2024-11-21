@@ -30,6 +30,12 @@ public class Transaction {
 	private Date paymentDate;
 	private Date createdAt = new Date();
 
+	public Transaction(String merchantCode, Double finalAmount, String status) {
+		this.merchantCode = merchantCode;
+		this.finalAmount = finalAmount;
+		this.status = status;
+	}
+
 	public Double getAmount() {
 		return amount;
 	}
