@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -20,14 +19,14 @@ import com.example.finance_core.util.MerchantValidator;
 public class TransactionService {
 	private final TransactionRepository transactionRepository;
 	private final MerchantValidator merchantValidator;
+	private final MongoTemplate mongoTemplate;
 
-	public TransactionService(TransactionRepository transactionRepository, MerchantValidator merchantValidator) {
+	public TransactionService(TransactionRepository transactionRepository, MerchantValidator merchantValidator,
+			MongoTemplate mongoTemplate) {
 		this.transactionRepository = transactionRepository;
 		this.merchantValidator = merchantValidator;
+		this.mongoTemplate = mongoTemplate;
 	}
-
-	@Autowired
-	private MongoTemplate mongoTemplate;
 
 	public Transaction saveTransaction(Transaction transaction) {
 		String merchantCode = merchantValidator.getOrCreateMerchantCode(transaction.getDescription());
@@ -53,7 +52,7 @@ public class TransactionService {
 
 		String cardNumber = transaction.getCardNumber();
 		if (cardNumber != null && cardNumber.length() >= 4) {
-			String maskedCardNumber = "*** **** **** " + cardNumber.substring(cardNumber.length() - 4);
+			String maskedCardNumber = "**** **** **** " + cardNumber.substring(cardNumber.length() - 4);
 			transaction.setCardNumber(maskedCardNumber);
 		}
 
