@@ -45,8 +45,6 @@ public class TransactionService {
 		double finalAmount = calculateFinalAmount(transaction.getAmount(), paymentMethod);
 		transaction.setFinalAmount(finalAmount);
 
-		System.out.print(finalAmount);
-
 		String status = paymentMethod.equalsIgnoreCase("debit") ? "paid" : "waiting_funds";
 		transaction.setStatus(status);
 

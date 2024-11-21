@@ -23,9 +23,6 @@ public class BalanceService {
 		Double WaitingFundsBalance = transactionRepository.findByMerchantCodeAndStatus(merchantCode, "waiting_funds")
 				.stream().mapToDouble(Transaction::getFinalAmount).sum();
 
-		System.out.println(availableBalance);
-		System.out.println(WaitingFundsBalance);
-
 		Map<String, Double> balances = new HashMap<>();
 		balances.put("available", availableBalance);
 		balances.put("waiting_funds", WaitingFundsBalance);
