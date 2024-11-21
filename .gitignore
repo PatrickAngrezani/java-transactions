@@ -1,0 +1,44 @@
+# Build / Target Directory
+/target/
+
+# Logs
+*.log
+
+# IntelliJ IDEA
+/.idea/
+/*.iml
+*.ipr
+*.iws
+
+# Eclipse
+/.classpath
+/.project
+/.settings/
+
+# Maven Wrapper
+/mvnw
+/mvnw.cmd
+/.mvn/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Temp Files
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Java Compilation Files
+*.class
+
+# Test Reports
+/test-output/
+
+# Spring Boot Devtools
+/spring-boot-devtools.properties
+
+# Sensitive Files
+application.properties
+application.yml
