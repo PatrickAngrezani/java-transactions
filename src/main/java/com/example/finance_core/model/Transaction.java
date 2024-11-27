@@ -7,11 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-@Setter
-@Getter
 @Data
 @Document(collection = "transactions")
 public class Transaction {
@@ -30,11 +26,18 @@ public class Transaction {
 	private Date paymentDate;
 	private Date createdAt = new Date();
 
+<<<<<<< Updated upstream
 	public Double getAmount() {
 		return amount;
 	}
 
 	public Double getFinalAmount() {
 		return finalAmount;
+=======
+	public Transaction(String merchantCode, Double finalAmount, String status) {
+		this.merchantCode = merchantCode;
+		this.finalAmount = finalAmount;
+		this.status = status;
+>>>>>>> Stashed changes
 	}
 }

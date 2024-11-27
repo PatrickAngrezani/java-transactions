@@ -21,11 +21,11 @@ public class StatementService {
 
 	public Statement generateStatement(String merchantCode) {
 		List<Transaction> transactions = transactionRepository.findByMerchantCode(merchantCode);
-		Double totalAmount = transactions.stream().mapToDouble(Transaction::getAmount).sum();
+		Double finalAmount = transactions.stream().mapToDouble(Transaction::getFinalAmount).sum();
 
 		Statement statement = new Statement();
 		statement.setMerchantCode(merchantCode);
-		statement.setTotalAmount(totalAmount);
+		statement.setFinalAmount(finalAmount);
 
 		return statementRepository.save(statement);
 	}
