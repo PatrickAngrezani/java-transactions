@@ -39,19 +39,21 @@ public class TransactionServiceTest {
 	private TransactionService transactionService;
 
 	@Test
-	void shouldSaveTransactionSuccesfully() {
+	void shouldSaveTransactionSuccessfully() {
+		final String merchantCode = "123e4567-e89b-12d3-a456-426614174000";
+		final String description = "description1";
+		final String cardNumber = "1234567890123456";
+
 		// merchantValidator mock
-		when(merchantValidator.getOrCreateMerchantCode("description1"))
-				.thenReturn("123e4567-e89b-12d3-a456-426614174000");
-		when(merchantValidator.isMerchantValid(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"), "description1"))
-				.thenReturn(true);
+		when(merchantValidator.getOrCreateMerchantCode(description)).thenReturn(merchantCode);
+		when(merchantValidator.isMerchantValid(UUID.fromString(merchantCode), description)).thenReturn(true);
 
 		// Creating transaction
-		Transaction transaction = new Transaction("123e4567-e89b-12d3-a456-426614174000", 95.0, "description1");
-		transaction.setDescription("description1");
+		Transaction transaction = new Transaction(merchantCode, 95.0, description);
+		transaction.setDescription(description);
 		transaction.setAmount(100.0);
 		transaction.setPaymentMethod("credit");
-		transaction.setCardNumber("1234567890123456");
+		transaction.setCardNumber(cardNumber);
 
 		// Mock repository
 		when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> invocation.getArgument(0));
@@ -60,7 +62,7 @@ public class TransactionServiceTest {
 		Transaction savedTransaction = transactionService.saveTransaction(transaction);
 
 		// Verify changes in object
-		assertEquals("123e4567-e89b-12d3-a456-426614174000", savedTransaction.getMerchantCode());
+		assertEquals(merchantCode, savedTransaction.getMerchantCode());
 		assertEquals("credit", savedTransaction.getPaymentMethod());
 		assertEquals("waiting_funds", savedTransaction.getStatus());
 		assertEquals(95.0, savedTransaction.getFinalAmount());

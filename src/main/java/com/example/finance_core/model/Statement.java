@@ -6,11 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-@Setter
-@Getter
 @Data
 @Document(collection = "statement")
 public class Statement {
@@ -22,12 +18,4 @@ public class Statement {
 	private String status;
 	private Date paymentDate;
 	private Date generatedAt = new Date();
-
-	public void setMerchantCode(String merchantCode) {
-		this.merchantCode = merchantCode;
-	}
-
-	public void setTotalAmount(Double finalAmount) {
-		this.finalAmount = finalAmount;
-	}
 }

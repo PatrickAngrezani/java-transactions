@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -30,11 +29,11 @@ public class TransactionService {
 
 	public Transaction saveTransaction(Transaction transaction) {
 		String merchantCode = merchantValidator.getOrCreateMerchantCode(transaction.getDescription());
-		transaction.setMerchantCode(merchantCode.toString());
+		transaction.setMerchantCode(merchantCode);
 
 		// Valid if merchantCode and descriptions are linked
-		UUID UuidmerchantCode = UUID.fromString(merchantCode);
-		if (!merchantValidator.isMerchantValid(UuidmerchantCode, transaction.getDescription())) {
+//		UUID UuidmerchantCode = UUID.fromString(merchantCode);
+		if (!merchantValidator.isMerchantValid(merchantCode, transaction.getDescription())) {
 			throw new IllegalArgumentException("Merchant code and description do not match");
 		}
 

@@ -22,12 +22,12 @@ public class MerchantValidator {
 		return merchantRepository.findByDescription(description).map(merchant -> merchant.getMerchantCode().toString())
 				.orElseGet(() -> {
 					UUID newMerchantCode = UUID.randomUUID();
-					merchantRepository.save(new Merchant(newMerchantCode, description));
+					merchantRepository.save(new Merchant(newMerchantCode.toString(), description));
 					return newMerchantCode.toString();
 				});
 	}
 
-	public boolean isMerchantValid(UUID merchantCode, String description) {
+	public boolean isMerchantValid(String merchantCode, String description) {
 		return merchantRepository.findById(merchantCode).map(merchant -> merchant.getDescription().equals(description))
 				.orElse(false);
 	}
