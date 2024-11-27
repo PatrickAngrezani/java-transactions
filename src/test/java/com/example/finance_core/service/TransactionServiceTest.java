@@ -9,7 +9,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,11 +39,13 @@ public class TransactionServiceTest {
 
 	@Test
 	void shouldSaveTransactionSuccesfully() {
+		final String merchantCode = "123e4567-e89b-12d3-a456-426614174000";
+		final String description = "description1";
+		final String cardNumber = "1234567890123456";
+
 		// merchantValidator mock
-		when(merchantValidator.getOrCreateMerchantCode("description1"))
-				.thenReturn("123e4567-e89b-12d3-a456-426614174000");
-		when(merchantValidator.isMerchantValid(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"), "description1"))
-				.thenReturn(true);
+		when(merchantValidator.getOrCreateMerchantCode(description)).thenReturn(merchantCode);
+		when(merchantValidator.isMerchantValid(merchantCode, description)).thenReturn(true);
 
 		// Creating transaction
 		Transaction transaction = new Transaction("123e4567-e89b-12d3-a456-426614174000", 95.0, "description1");
